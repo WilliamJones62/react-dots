@@ -1,10 +1,63 @@
 .App {
+  margin: 0 0 0 0;
+  padding: 0;
   text-align: center;
 }
 
 .App-header {
+  margin: 0 0 0 0;
+  padding: 0;
   background-color: #222;
-  height: 150px;
-  padding: 20px;
+  height: 80px;
   color: white;
+}
+
+.board-row:after {
+  clear: both;
+  content: "";
+  display: table;
+  margin: 0 0 0 0;
+  padding: 0;
+}
+
+.square {
+  margin: 0 0 0 0;
+  padding: 0;
+  background: #fff;
+  border: 1px solid #999;
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 34px;
+  height: 34px;
+  padding: 0;
+  text-align: center;
+  width: 34px;
+  overflow: hidden;
+}
+
+.horizontal {
+  margin: 0 0 0 0;
+  background: #fff;
+  border: 1px solid #999;
+  height: 5px;
+  padding: 0;
+  width: 40px;
+  overflow: hidden;
+}
+
+.virtical {
+  margin: 0 0 0 0;
+  background: #fff;
+  border: 1px solid #999;
+  height: 40px;
+  padding: 0;
+  width: 5px;
+  overflow: hidden;
+}
+
+.game {
+  display: flex;
+  flex-direction: row;
+  margin: 0 0 0 0;
+  padding: 0;
 }
