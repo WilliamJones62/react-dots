@@ -3,14 +3,14 @@ import './App.css';
 
 function Horizontal(props) {
   return (
-    <button className="horizontal">
+    <button className="horizontal"  onClick={props.onClick}>
     </button>
   );
 }
 
 function Virtical(props) {
   return (
-    <button className="virtical">
+    <button className="virtical"  onClick={props.onClick}>
     </button>
   );
 }
@@ -23,6 +23,14 @@ function Square(props) {
 }
 
 class Board extends React.Component {
+  constructor() {
+     super();
+     this.state = {
+       virtical: Array(12).fill(null),
+       horizontal: Array(12).fill(null),
+     };
+   }
+
   renderHorizontal(i) {
     return (
       <Horizontal
@@ -47,12 +55,12 @@ class Board extends React.Component {
   render() {
     var rows = [];
     for (var i = 0; i < 3; i++) {
-      rows.push(<div className="board-row">
+      rows.push(<div>
                 {this.renderHorizontal(i * 3)}
                 {this.renderHorizontal(i * 3 + 1)}
                 {this.renderHorizontal(i * 3 + 2)}
               </div>)
-      rows.push(<div className="board-row">
+      rows.push(<div>
                 {this.renderVirtical(i * 4)}
                 {this.renderSquare(i * 4)}
                 {this.renderVirtical(i * 4 + 1)}
@@ -63,7 +71,7 @@ class Board extends React.Component {
               </div>)
     };
 
-    rows.push(<div className="board-row">
+    rows.push(<div>
               {this.renderHorizontal(3 * 3)}
               {this.renderHorizontal(3 * 3 + 1)}
               {this.renderHorizontal(3 * 3 + 2)}
