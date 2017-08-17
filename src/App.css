@@ -12,33 +12,30 @@
   color: white;
 }
 
-.board-row:after {
-  clear: both;
-  content: "";
-  display: table;
+.board-row {
   margin: 0 0 0 0;
   padding: 0;
+  height: 15px;
 }
 
 .square {
   margin: 0 0 0 0;
   padding: 0;
-  background: #fff;
-  border: 1px solid #999;
-  font-size: 24px;
+  background: #FFF;
+  border: 1px solid #FFF;
+  font-size: 10px;
   font-weight: bold;
-  line-height: 34px;
   height: 34px;
   padding: 0;
   text-align: center;
-  width: 34px;
+  width: 35px;
   overflow: hidden;
 }
 
 .horizontal {
   margin: 0 0 0 0;
-  background: #fff;
-  border: 1px solid #999;
+  background: #FFF;
+  border: 1px solid #FFF;
   border-left-color: #000;
   border-left-width: 5px;
   border-left-style: solid;
@@ -50,9 +47,9 @@
 
 .virtical {
   margin: 0 0 0 0;
-  background: #fff;
-  border: 1px solid #999;
-  height: 40px;
+  background: #FFF;
+  border: 0px;
+  height: 30px;
   padding: 0;
   width: 5px;
   overflow: hidden;

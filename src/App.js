@@ -67,7 +67,7 @@ class Board extends React.Component {
           }
         }
       }
-      rows.push(<div>
+      rows.push(<div className="board-row">
                   {sides}
                 </div>)
       sides = []
