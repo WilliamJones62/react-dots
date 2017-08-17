@@ -54,28 +54,24 @@ class Board extends React.Component {
 
   render() {
     var rows = [];
-    for (var i = 0; i < 3; i++) {
+    var sides = [];
+    for (var i = 0; i < 12; i++) {
+      for (var j = 0; j < 6; j++) {
+        if (i % 2 == 0) {
+          sides.push(this.renderHorizontal(i * 6 + j))
+        }
+        else {
+          if (i < 11) {
+            sides.push(this.renderVirtical(i * 6 + j),
+                        this.renderSquare(i * 6 + j))
+          }
+        }
+      }
       rows.push(<div>
-                {this.renderHorizontal(i * 3)}
-                {this.renderHorizontal(i * 3 + 1)}
-                {this.renderHorizontal(i * 3 + 2)}
-              </div>)
-      rows.push(<div>
-                {this.renderVirtical(i * 4)}
-                {this.renderSquare(i * 4)}
-                {this.renderVirtical(i * 4 + 1)}
-                {this.renderSquare(i * 4 + 1)}
-                {this.renderVirtical(i * 4 + 2)}
-                {this.renderSquare(i * 4 + 2)}
-                {this.renderVirtical(i * 4 + 3)}
-              </div>)
+                  {sides}
+                </div>)
+      sides = []
     };
-
-    rows.push(<div>
-              {this.renderHorizontal(3 * 3)}
-              {this.renderHorizontal(3 * 3 + 1)}
-              {this.renderHorizontal(3 * 3 + 2)}
-            </div>);
 
     return (
       <div>

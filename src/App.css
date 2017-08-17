@@ -39,6 +39,9 @@
   margin: 0 0 0 0;
   background: #fff;
   border: 1px solid #999;
+  border-left-color: #000;
+  border-left-width: 5px;
+  border-left-style: solid;
   height: 5px;
   padding: 0;
   width: 40px;
@@ -49,9 +52,6 @@
   margin: 0 0 0 0;
   background: #fff;
   border: 1px solid #999;
-  border-top-color: #000;
-  border-top-width: 5px;
-  border-top-style: solid;
   height: 40px;
   padding: 0;
   width: 5px;
