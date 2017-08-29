@@ -50,13 +50,9 @@ class Board extends React.Component {
       return;
     }
     horizontals[i] = true;
-    debugger;
-    if (i < 5){
-      squares[i]++;
-    }
-    else {
+    squares[i]++;
+    if (i > 5){
       squares[i-6]++;
-      squares[i]++;
     }
     this.setState({
       horizontals: horizontals,
@@ -76,12 +72,18 @@ class Board extends React.Component {
 
   handleVerticalClick(i) {
     const verticals = this.state.verticals.slice();
+    const squares = this.state.squares.slice();
     if (verticals[i]) {
       return;
     }
     verticals[i] = true;
+    squares[i]++;
+    if(i > 0){
+      squares[i-1]++;
+    };
     this.setState({
       verticals: verticals,
+      squares: squares,
       oneIsNext: !this.state.oneIsNext,
     });
   }
