@@ -38,42 +38,53 @@ class Board extends React.Component {
      this.state = {
        verticals: Array(36).fill(null),
        horizontals: Array(36).fill(null),
+       squares: Array(36).fill(0),
        oneIsNext: true,
      };
    }
 
-   handleHorizontalClick(i) {
-     const horizontals = this.state.horizontals.slice();
-       if (horizontals[i]) {
-         return;
-       }
-       horizontals[i] = true;
-       this.setState({
-         horizontals: horizontals,
-         oneIsNext: !this.state.oneIsNext,
-       });
-     }
+  handleHorizontalClick(i) {
+    const horizontals = this.state.horizontals.slice();
+    const squares = this.state.squares.slice();
+    if (horizontals[i] || ((i+1) % 6 === 0)) {
+      return;
+    }
+    horizontals[i] = true;
+    debugger;
+    if (i < 5){
+      squares[i]++;
+    }
+    else {
+      squares[i-6]++;
+      squares[i]++;
+    }
+    this.setState({
+      horizontals: horizontals,
+      squares: squares,
+      oneIsNext: !this.state.oneIsNext,
+    });
+  }
 
-    renderHorizontal(i) {
-      return (
-        <Horizontal
-          value={this.state.horizontals[i]}
-          onClick={() => this.handleHorizontalClick(i)}
+  renderHorizontal(i) {
+    return (
+      <Horizontal
+        value={this.state.horizontals[i]}
+        onClick={() => this.handleHorizontalClick(i)}
       />
     );
   }
 
   handleVerticalClick(i) {
     const verticals = this.state.verticals.slice();
-      if (verticals[i]) {
-        return;
-      }
-      verticals[i] = true;
-      this.setState({
-        verticals: verticals,
-        oneIsNext: !this.state.oneIsNext,
-      });
+    if (verticals[i]) {
+      return;
     }
+    verticals[i] = true;
+    this.setState({
+      verticals: verticals,
+      oneIsNext: !this.state.oneIsNext,
+    });
+  }
 
   renderVertical(i) {
     return (
@@ -94,22 +105,24 @@ class Board extends React.Component {
   render() {
     var rows = [];
     var sides = [];
-    for (var i = 0; i < 12; i++) {
+    for (var i = 0; i < 6; i++) {
       for (var j = 0; j < 6; j++) {
-        if (i % 2 === 0) {
-          sides.push(this.renderHorizontal(i * 6 + j))
-        }
-        else {
-          if (i < 11) {
-            sides.push(this.renderVertical(i * 6 + j),
-                        this.renderSquare(i * 6 + j))
-          }
-        }
+        sides.push(this.renderHorizontal(i * 6 + j))
       }
       rows.push(<div className="board-row">
                   {sides}
                 </div>)
       sides = []
+      if (i < 5) {
+        for (var j = 0; j < 6; j++) {
+          sides.push(this.renderVertical(i * 6 + j),
+                     this.renderSquare(i * 6 + j))
+        }
+        rows.push(<div className="board-row">
+                    {sides}
+                  </div>)
+        sides = []
+      }
     };
 
     return (
@@ -119,7 +132,6 @@ class Board extends React.Component {
     );
   }
 }
-
 
 class App extends Component {
   render() {
