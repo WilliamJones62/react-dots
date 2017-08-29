@@ -2,8 +2,13 @@ import React, { Component } from 'react';
 import './App.css';
 
 function Horizontal(props) {
+  var btnClass = 'horizontal';
+  if (props.value) {
+    btnClass = 'horizontal-played';
+  };
+
   return (
-    <button className="horizontal" onClick={props.onClick}>
+    <button className={btnClass} onClick={props.onClick}>
     </button>
   );
 }
@@ -11,7 +16,7 @@ function Horizontal(props) {
 function Vertical(props) {
   var btnClass = 'vertical';
   if (props.value) {
-    btnClass += ', played';
+    btnClass = 'vertical-played';
   };
 
   return (

@@ -23,7 +23,7 @@
   margin: 0 0 0 0;
   padding: 0;
   background: #FFF;
-  border: 1px solid #999;
+  border: 1px solid #FFF;
   font-size: 10px;
   font-weight: bold;
   height: 30px;
@@ -37,7 +37,7 @@
 .horizontal {
   margin: 0 0 0 0;
   background: #FFF;
-  border: 1px solid #999;
+  border: 1px solid #FFF;
   border-left-color: #000;
   border-left-width: 5px;
   border-left-style: solid;
@@ -48,9 +48,21 @@
   overflow: hidden;
 }
 
+.horizontal-played {
+  margin: 0 0 0 0;
+  background: #000;
+  border: 1px solid #000;
+  height: 5px;
+  position: relative;
+  padding: 0;
+  width: 40px;
+  overflow: hidden;
+}
+
 .vertical {
   margin: 0 0 0 0;
-  border: 1px solid #999;
+  background: #FFF;
+  border: 1px solid #FFF;
   height: 30px;
   position: relative;
   padding: 0;
@@ -58,8 +70,15 @@
   overflow: hidden;
 }
 
-.played {
-    background: #000;
+.vertical-played {
+  margin: 0 0 0 0;
+  background: #000;
+  border: 1px solid #000;
+  height: 30px;
+  position: relative;
+  padding: 0;
+  width: 5px;
+  overflow: hidden;
 }
 
 .game {
