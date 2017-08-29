@@ -3,14 +3,19 @@ import './App.css';
 
 function Horizontal(props) {
   return (
-    <button className="horizontal"  onClick={props.onClick}>
+    <button className="horizontal" onClick={props.onClick}>
     </button>
   );
 }
 
-function Virtical(props) {
+function Vertical(props) {
+  var btnClass = 'vertical';
+  if (props.value) {
+    btnClass += ', played';
+  };
+
   return (
-    <button className="virtical"  onClick={props.onClick}>
+    <button className={btnClass} onClick={props.onClick}>
     </button>
   );
 }
@@ -26,21 +31,50 @@ class Board extends React.Component {
   constructor() {
      super();
      this.state = {
-       virtical: Array(12).fill(null),
-       horizontal: Array(12).fill(null),
+       verticals: Array(36).fill(null),
+       horizontals: Array(36).fill(null),
+       oneIsNext: true,
      };
    }
 
-  renderHorizontal(i) {
-    return (
-      <Horizontal
+   handleHorizontalClick(i) {
+     const horizontals = this.state.horizontals.slice();
+       if (horizontals[i]) {
+         return;
+       }
+       horizontals[i] = true;
+       this.setState({
+         horizontals: horizontals,
+         oneIsNext: !this.state.oneIsNext,
+       });
+     }
+
+    renderHorizontal(i) {
+      return (
+        <Horizontal
+          value={this.state.horizontals[i]}
+          onClick={() => this.handleHorizontalClick(i)}
       />
     );
   }
 
-  renderVirtical(i) {
+  handleVerticalClick(i) {
+    const verticals = this.state.verticals.slice();
+      if (verticals[i]) {
+        return;
+      }
+      verticals[i] = true;
+      this.setState({
+        verticals: verticals,
+        oneIsNext: !this.state.oneIsNext,
+      });
+    }
+
+  renderVertical(i) {
     return (
-      <Virtical
+      <Vertical
+        value={this.state.verticals[i]}
+        onClick={() => this.handleVerticalClick(i)}
       />
     );
   }
@@ -57,12 +91,12 @@ class Board extends React.Component {
     var sides = [];
     for (var i = 0; i < 12; i++) {
       for (var j = 0; j < 6; j++) {
-        if (i % 2 == 0) {
+        if (i % 2 === 0) {
           sides.push(this.renderHorizontal(i * 6 + j))
         }
         else {
           if (i < 11) {
-            sides.push(this.renderVirtical(i * 6 + j),
+            sides.push(this.renderVertical(i * 6 + j),
                         this.renderSquare(i * 6 + j))
           }
         }
@@ -89,7 +123,7 @@ class App extends Component {
         <div className="App-header">
           <h2>Welcome to React Dots</h2>
         </div>
-        <div className="game-board">
+        <div className="game">
           <Board />
         </div>
 
