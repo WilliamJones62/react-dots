@@ -41,28 +41,63 @@ class Board extends React.Component {
       horizontals: Array(36).fill(null),
       counters: Array(36).fill(0),
       squares: Array(36).fill(null),
+      playerOneCtr: 0,
+      playerTwoCtr: 0,
       oneIsNext: true,
     };
+  }
+
+  squareComplete(i) {
+    let playerOneCtr = this.state.playerOneCtr;
+    let playerTwoCtr = this.state.playerTwoCtr;
+
+    if (i === 4) {
+      if (this.state.oneIsNext) {
+        playerOneCtr ++;
+      }
+      else {
+        playerTwoCtr ++;
+      }
+      this.setState({
+        playerOneCtr: playerOneCtr,
+        playerTwoCtr: playerTwoCtr,
+      });
+
+      return this.state.oneIsNext ? "1" : "2";
+    }
+    else {
+      return null;
+    }
   }
 
   handleHorizontalClick(i) {
     const horizontals = this.state.horizontals.slice();
     const counters = this.state.counters.slice();
     const squares = this.state.squares.slice();
+    let squareWinner;
+
     if (horizontals[i] || ((i+1) % 6 === 0)) {
       return;
     }
     horizontals[i] = true;
     counters[i]++;
-    if (counters[i] === 4) {
-      squares[i] = this.state.oneIsNext ? "1" : "2";
+
+    squareWinner = this.squareComplete(counters[i]);
+
+    if (squareWinner) {
+      squares[i] = squareWinner;
     }
+
     if (i > 5){
       counters[i-6]++;
-      if (counters[i-6] === 4) {
-        squares[i-6] = this.state.oneIsNext ? "1" : "2";
+      squareWinner = this.squareComplete(counters[i-6]);
+
+      if (squareWinner) {
+        squares[i-6] = squareWinner;
       }
+
     }
+
     this.setState({
       horizontals: horizontals,
       counters: counters,
@@ -84,19 +119,26 @@ class Board extends React.Component {
     const verticals = this.state.verticals.slice();
     const counters = this.state.counters.slice();
     const squares = this.state.squares.slice();
+    let squareWinner;
     if (verticals[i]) {
       return;
     }
     verticals[i] = true;
     counters[i]++;
-    if (counters[i] === 4) {
-      squares[i] = this.state.oneIsNext ? "1" : "2";
+    squareWinner = this.squareComplete(counters[i]);
+
+    if (squareWinner) {
+      squares[i] = squareWinner;
     }
+
     if (i > 0) {
       counters[i-1]++;
-      if (counters[i-1] === 4) {
-        squares[i-1] = this.state.oneIsNext ? "1" : "2";
+      squareWinner = this.squareComplete(counters[i-1]);
+
+      if (squareWinner) {
+        squares[i-1] = squareWinner;
       }
+
     };
     this.setState({
       verticals: verticals,
@@ -124,6 +166,18 @@ class Board extends React.Component {
     );
   }
 
+  calculateWinner() {
+    if (this.state.playerOneCtr > 12) {
+      return '1';
+    }
+    else if (this.state.playerTwoCtr > 12) {
+      return '2';
+    }
+    else {
+      return null;
+    }
+  }
+
   render() {
     var rows = [];
     var sides = [];
@@ -146,11 +200,25 @@ class Board extends React.Component {
         sides = []
       }
     };
+    const winner = this.calculateWinner();
+    let status;
+    if (winner) {
+      status = "Winner: " + winner;
+    } else {
+      status = "Next player: " + (this.state.oneIsNext ? "1" : "2");
+    }
+
 
     return (
       <div>
-        {rows}
+        <div>
+          {rows}
+        </div>
+        <div className="game-info">
+          <div>{status}</div>
+        </div>
       </div>
+
     );
   }
 }
@@ -165,7 +233,6 @@ class App extends Component {
         <div className="game">
           <Board />
         </div>
-
       </div>
     );
   }
