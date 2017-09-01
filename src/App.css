@@ -48,6 +48,8 @@
   overflow: hidden;
 }
 
+.horizontal:hover {background: #F00;}
+
 .horizontal-played {
   margin: 0 0 0 0;
   background: #000;
@@ -69,6 +71,8 @@
   width: 5px;
   overflow: hidden;
 }
+
+.vertical:hover {background: #F00;}
 
 .vertical-played {
   margin: 0 0 0 0;
