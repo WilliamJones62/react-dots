@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import './App.css';
 
+var playerOneCtr = 0;
+var playerTwoCtr = 0;
+var oneIsNext = true;
+var counters = [];
+
 function Horizontal(props) {
   var btnClass = 'horizontal';
   if (props.value) {
@@ -34,36 +39,25 @@ function Square(props) {
 }
 
 class Board extends React.Component {
+
   constructor() {
     super();
     this.state = {
       verticals: Array(36).fill(null),
       horizontals: Array(36).fill(null),
-      counters: Array(36).fill(0),
       squares: Array(36).fill(null),
-      playerOneCtr: 0,
-      playerTwoCtr: 0,
-      oneIsNext: true,
     };
   }
 
   squareComplete(i) {
-    let playerOneCtr = this.state.playerOneCtr;
-    let playerTwoCtr = this.state.playerTwoCtr;
-
     if (i === 4) {
-      if (this.state.oneIsNext) {
+      if (oneIsNext) {
         playerOneCtr ++;
       }
       else {
         playerTwoCtr ++;
       }
-      this.setState({
-        playerOneCtr: playerOneCtr,
-        playerTwoCtr: playerTwoCtr,
-      });
-
-      return this.state.oneIsNext ? "1" : "2";
+      return oneIsNext ? "1" : "2";
     }
     else {
       return null;
@@ -72,9 +66,9 @@ class Board extends React.Component {
 
   handleHorizontalClick(i) {
     const horizontals = this.state.horizontals.slice();
-    const counters = this.state.counters.slice();
     const squares = this.state.squares.slice();
     let squareWinner;
+    let changePlayer = true;
 
     if (horizontals[i] || ((i+1) % 6 === 0)) {
       return;
@@ -86,6 +80,7 @@ class Board extends React.Component {
 
     if (squareWinner) {
       squares[i] = squareWinner;
+      changePlayer = false;
     }
 
     if (i > 5){
@@ -94,15 +89,18 @@ class Board extends React.Component {
 
       if (squareWinner) {
         squares[i-6] = squareWinner;
+        changePlayer = false;
       }
 
     }
 
+    if (changePlayer) {
+      oneIsNext = !oneIsNext;
+    }
+
     this.setState({
       horizontals: horizontals,
-      counters: counters,
       squares: squares,
-      oneIsNext: !this.state.oneIsNext,
     });
   }
 
@@ -117,9 +115,10 @@ class Board extends React.Component {
 
   handleVerticalClick(i) {
     const verticals = this.state.verticals.slice();
-    const counters = this.state.counters.slice();
     const squares = this.state.squares.slice();
     let squareWinner;
+    let changePlayer = true;
+
     if (verticals[i]) {
       return;
     }
@@ -129,6 +128,7 @@ class Board extends React.Component {
 
     if (squareWinner) {
       squares[i] = squareWinner;
+      changePlayer = false;
     }
 
     if (i > 0) {
@@ -137,14 +137,18 @@ class Board extends React.Component {
 
       if (squareWinner) {
         squares[i-1] = squareWinner;
+        changePlayer = false;
       }
 
     };
+
+    if (changePlayer) {
+      oneIsNext = !oneIsNext;
+    }
+
     this.setState({
       verticals: verticals,
-      counters: counters,
       squares: squares,
-      oneIsNext: !this.state.oneIsNext,
     });
 
   }
@@ -167,10 +171,10 @@ class Board extends React.Component {
   }
 
   calculateWinner() {
-    if (this.state.playerOneCtr > 12) {
+    if (playerOneCtr > 12) {
       return '1';
     }
-    else if (this.state.playerTwoCtr > 12) {
+    else if (playerTwoCtr > 12) {
       return '2';
     }
     else {
@@ -181,6 +185,7 @@ class Board extends React.Component {
   render() {
     var rows = [];
     var sides = [];
+
     for (var i = 0; i < 6; i++) {
       for (var j = 0; j < 6; j++) {
         sides.push(this.renderHorizontal(i * 6 + j))
@@ -205,7 +210,7 @@ class Board extends React.Component {
     if (winner) {
       status = "Winner: " + winner;
     } else {
-      status = "Next player: " + (this.state.oneIsNext ? "1" : "2");
+      status = "Next player: " + (oneIsNext ? "1" : "2");
     }
 
 
@@ -224,7 +229,14 @@ class Board extends React.Component {
 }
 
 class App extends Component {
+  initializeCounters() {
+    for (var i = 0; i < 36; i++) {
+      counters [i] = 0;
+    }
+  }
+
   render() {
+    this.initializeCounters();
     return (
       <div className="App">
         <div className="App-header">
