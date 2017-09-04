@@ -195,7 +195,7 @@ class Board extends React.Component {
                 </div>)
       sides = []
       if (i < 5) {
-        for (var j = 0; j < 6; j++) {
+        for (j = 0; j < 6; j++) {
           sides.push(this.renderVertical(i * 6 + j),
                      this.renderSquare(i * 6 + j))
         }
@@ -231,7 +231,7 @@ class Board extends React.Component {
 class App extends Component {
   initializeCounters() {
     for (var i = 0; i < 36; i++) {
-      counters [i] = 0;
+      counters[i] = 0;
     }
   }
 
