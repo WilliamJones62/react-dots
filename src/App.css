@@ -12,26 +12,31 @@
   color: white;
 }
 
-.board-row {
+.board-row1 {
   margin: 0 0 0 0;
   padding: 0;
   height: 15px;
   position: relative;
 }
 
+.board-row2 {
+  margin: 0 0 0 0;
+  padding: 0;
+  height: 19px;
+  position: relative;
+}
+
 .square {
   margin: 0 0 0 0;
   padding: 0;
-  background: #FFF;
   border: 1px solid #FFF;
+  background: #FFF;
   font-size: 10px;
   font-weight: bold;
   height: 30px;
-  position: relative;
   padding: 0;
-  text-align: top;
+  text-align: center;
   width: 35px;
-  overflow: hidden;
 }
 
 .horizontal {
@@ -39,13 +44,12 @@
   background: #FFF;
   border: 1px solid #FFF;
   border-left-color: #000;
-  border-left-width: 5px;
+  border-left-width: 6px;
   border-left-style: solid;
   height: 5px;
   position: relative;
   padding: 0;
   width: 40px;
-  overflow: hidden;
 }
 
 .horizontal:hover {background: #F00;}
@@ -58,7 +62,6 @@
   position: relative;
   padding: 0;
   width: 40px;
-  overflow: hidden;
 }
 
 .vertical {
@@ -69,7 +72,6 @@
   position: relative;
   padding: 0;
   width: 5px;
-  overflow: hidden;
 }
 
 .vertical:hover {background: #F00;}
@@ -82,7 +84,6 @@
   position: relative;
   padding: 0;
   width: 5px;
-  overflow: hidden;
 }
 
 .game {
@@ -91,6 +92,6 @@
 }
 
 .game-info {
-  margin-left: 20px;
+  margin-left: 0px;
   margin-top: 20px;
 }

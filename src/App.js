@@ -190,7 +190,7 @@ class Board extends React.Component {
       for (var j = 0; j < 6; j++) {
         sides.push(this.renderHorizontal(i * 6 + j))
       }
-      rows.push(<div className="board-row">
+      rows.push(<div className="board-row1">
                   {sides}
                 </div>)
       sides = []
@@ -199,7 +199,7 @@ class Board extends React.Component {
           sides.push(this.renderVertical(i * 6 + j),
                      this.renderSquare(i * 6 + j))
         }
-        rows.push(<div className="board-row">
+        rows.push(<div className="board-row2">
                     {sides}
                   </div>)
         sides = []
